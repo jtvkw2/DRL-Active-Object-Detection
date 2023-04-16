@@ -1,3 +1,5 @@
+import torch
+
 def intersection_over_union(boxes_a, boxes_b):
     """
     Computes the intersection over union (IoU) between two sets of bounding boxes.
@@ -50,3 +52,42 @@ def load_dataset(dataset_path, split):
     Returns:
         Dataset: An instance of a dataset class (e.g., COCO or PASCAL VOC) for the specified split.
     """
+
+def compute_losses(targets, predictions, config):
+    """
+    Computes the classification loss and bounding box regression loss for the object detection model.
+
+    Args:
+        targets (list of dicts): The ground truth targets.
+        predictions (list of dicts): The predicted targets.
+        config (dict): The configuration dictionary for the loss settings.
+
+    Returns:
+        losses (dict): The classification loss and bounding box regression loss.
+    """
+    num_classes = len(config['class_labels']) + 1  # +1 for background class
+    classification_losses = []
+    bbox_regression_losses = []
+
+    for target, prediction in zip(targets, predictions):
+        # Compute classification loss
+        target_labels = target['labels']
+        pred_scores = prediction['scores']
+        pred_labels = prediction['labels']
+
+        classification_loss = torch.nn.CrossEntropyLoss()(pred_scores, target_labels)
+        classification_losses.append(classification_loss)
+
+        # Compute bounding box regression loss
+        target_boxes = target['boxes']
+        pred_boxes = prediction['boxes']
+
+        bbox_regression_loss = torch.nn.SmoothL1Loss()(pred_boxes, target_boxes)
+        bbox_regression_losses.append(bbox_regression_loss)
+
+    losses = {
+        'classification_loss': torch.mean(torch.stack(classification_losses)),
+        'bbox_regression_loss': torch.mean(torch.stack(bbox_regression_losses)),
+    }
+
+    return losses

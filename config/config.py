@@ -1,0 +1,41 @@
+config = {
+    'device': 'cuda',
+    'root_dir': './datasets.nosync/coco',
+    'train_img_dir': './datasets.nosync/coco/images/train2017',
+    'train_annotation_dir': './datasets.nosync/coco/annotations/instances_train2017.json',
+    'val_img_dir': './datasets.nosync/coco/images/val',
+    'val_annotation_dir': './datasets.nosync/coco/annotations/instances_val2017.json',
+    'train_batch_size': 4,
+    'val_batch_size': 4,
+    'num_workers': 1,
+    'num_epochs': 50,
+    'pretrained': True,
+    'img_size' : 480,
+    'batch_size': 4,
+    'learning_rate': 1e-4,
+    'class_labels': ['person', 'bicycle', 'car', 'motorcycle', 'airplane',
+                     'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
+                     'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
+                     'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
+                     'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard',
+                     'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard',
+                     'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork',
+                     'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange',
+                     'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair',
+                     'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop',
+                     'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster',
+                     'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear',
+                     'hair drier', 'toothbrush'],
+    'rl_agent': {
+        'alpha': 0.99,
+        'gamma': 0.95,
+        'eps_start': 1.0,
+        'eps_end': 0.01,
+        'eps_decay': 0.995,
+        'num_timesteps': 100
+    },
+    'loss_settings': {
+        'classification_weight': 1.0,
+        'bbox_regression_weight': 1.0
+    }
+}

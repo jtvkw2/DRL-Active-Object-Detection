@@ -93,3 +93,12 @@ class ObjectDetectionEnv(gym.Env):
 
         done = False
         return done
+    
+    def set_targets(self, targets):
+        """
+        Sets the ground truth bounding box targets.
+
+        Args:
+            targets (list): The ground truth bounding box targets.
+        """
+        self.targets = targets
